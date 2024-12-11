@@ -15,12 +15,17 @@ struct HomeView: View {
             Text("Home Screen")
                 .font(.largeTitle)
             Button("Go to Details") {
-                coordinator.push(AppScreen.details("Hello from Home!"))
+                coordinator.push(.details("Hello from Home!"))
             }
             .padding()
 
             Button("Go to Settings") {
-                coordinator.push(AppScreen.settings)
+                coordinator.push(.settings)
+            }
+            .padding()
+
+            Button("Show Modal Example") {
+                coordinator.present(.modalExample)
             }
             .padding()
         }
@@ -58,6 +63,39 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+    }
+}
+
+struct ModalExampleView: View {
+    @EnvironmentObject var coordinator: NavigationCoordinator
+
+    var body: some View {
+        VStack {
+            Text("Modal Example")
+                .font(.largeTitle)
+            Button("Dismiss") {
+                coordinator.dismiss()
+            }
+            Button("Go to Another Modal") {
+                coordinator.present(.anotherModal)
+            }
+        }
+        .padding()
+    }
+}
+
+struct AnotherModalView: View {
+    @EnvironmentObject var coordinator: NavigationCoordinator
+
+    var body: some View {
+        VStack {
+            Text("Another Modal View")
+                .font(.largeTitle)
+            Button("Dismiss") {
+                coordinator.dismiss()
+            }
+        }
+        .padding()
     }
 }
 

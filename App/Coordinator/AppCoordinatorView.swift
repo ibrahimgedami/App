@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AppCoordinatorView: View {
-
     @StateObject private var coordinator = NavigationCoordinator()
 
     var body: some View {
@@ -22,10 +21,22 @@ struct AppCoordinatorView: View {
                         DetailsView(message: message)
                     case .settings:
                         SettingsView()
+                    default:
+                        EmptyView()
                     }
                 }
         }
-        .environmentObject(coordinator) // Provide the coordinator to child views
+        .sheet(item: $coordinator.presentedScreen) { screen in
+            switch screen {
+            case .modalExample:
+                ModalExampleView()
+            case .anotherModal:
+                AnotherModalView()
+            default:
+                EmptyView()
+            }
+        }
+        .environmentObject(coordinator)
     }
 
 }

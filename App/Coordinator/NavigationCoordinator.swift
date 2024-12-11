@@ -33,8 +33,15 @@ class NavigationCoordinator: ObservableObject {
 
 }
 
-enum AppScreen: Hashable {
+enum AppScreen: Hashable, Identifiable {
+    
+    var id: UUID {
+        return UUID()
+    }
     case home
-    case details(String) // Pass data to details screen
+    case details(String)
     case settings
+    case modalExample
+    case anotherModal
+
 }
